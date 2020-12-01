@@ -1,0 +1,10 @@
+# Large assets
+iso/*
+!iso/Readme.md
+
+# Variables
+*.pkrvars.hcl
+
+# Packer artefacts
+output-*
+packer_cache
