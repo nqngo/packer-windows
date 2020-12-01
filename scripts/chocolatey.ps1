@@ -1,7 +1,7 @@
 $chocoExePath = 'C:\ProgramData\Chocolatey\bin'
 
 if ($($env:Path).ToLower().Contains($($chocoExePath).ToLower())) {
-  echo "Chocolatey found in PATH, skipping install..."
+  Write-Output "Chocolatey found in PATH, skipping install..."
   Exit
 }
 
@@ -19,4 +19,4 @@ if($userPath) {
 }
 
 # Run the installer
-iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+Invoke-Expression ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))

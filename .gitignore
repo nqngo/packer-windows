@@ -8,3 +8,4 @@ iso/*
 # Packer artefacts
 output-*
 packer_cache
+*.qcow2
