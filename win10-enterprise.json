@@ -1,0 +1,50 @@
+{
+  "description": "Windows 10 Enterprise",
+  "variables": {
+    "iso_dir": "./iso",
+    "iso_name": "SW_DVD9_Win_Pro_10_20H2_64BIT_English_Pro_Ent_EDU_N_MLF_-2_X22-41520.iso",
+    "iso_checksum": "SHA256:4767510FFB63CC6FE81BC81DDD377454751313185FFAE30B88DD597C8A24D371",
+    "output_dir": "./output",
+    "timestamp": "{{ isotime `200601021504` }}",
+    "autounattend": "./answer_files/10/enterprise/Autounattend.xml"
+  },
+  "builders": [
+    {
+      "type": "hyperv-iso",
+      "cpus": 4,
+      "disk_size": 102400,
+      "memory": 4096,
+      "iso_url": "{{ user `iso_dir` }}/{{ user `iso_name` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "vm_name": "Windows_10_Enterprise",
+      "boot_wait": "2m",
+      "headless": "true",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "ssh_wait_timeout": "2h",
+      "ssh_username": "Admin",
+      "ssh_password": "vagrant",
+      "switch_name": "Bridge",
+      "output_directory": "{{ user `output_dir` }}-{{ user `timestamp` }}_win10ent",
+      "floppy_files": [
+        "{{ user `autounattend` }}",
+        "./scripts/windows/fixnetwork.ps1",
+        "./scripts/windows/openssh.ps1",
+        "./scripts/windows/chocolatey.ps1"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "scripts": [
+        "./scripts/windows/enable-rdp.bat"
+      ]
+    },
+    {
+      "type": "powershell",
+      "scripts": [
+        "./scripts/windows/virtio.ps1"
+      ]
+    }
+  ]
+}

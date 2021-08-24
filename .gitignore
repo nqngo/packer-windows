@@ -1,0 +1,4 @@
+iso/*
+!iso/README.md
+packer_cache
+output-*

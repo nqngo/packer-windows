@@ -1,0 +1,1 @@
+Placeholder for storing Windows ISO image.
