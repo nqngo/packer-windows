@@ -23,13 +23,14 @@
       "ssh_wait_timeout": "2h",
       "ssh_username": "Admin",
       "ssh_password": "vagrant",
-      "switch_name": "Bridge",
+      "switch_name": "Default Switch",
       "output_directory": "{{ user `output_dir` }}-{{ user `timestamp` }}_win10ent",
       "floppy_files": [
         "{{ user `autounattend` }}",
         "./scripts/windows/fixnetwork.ps1",
-        "./scripts/windows/openssh.ps1",
-        "./scripts/windows/chocolatey.ps1"
+        "./scripts/windows/uac-disable.ps1",
+        "./scripts/windows/chocolatey.ps1",
+        "./scripts/windows/openssh-install.ps1"
       ]
     }
   ],
