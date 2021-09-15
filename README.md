@@ -1,3 +1,3 @@
-# packer-mrc-gpu
+# Packer Windows
 
-Building GPU instance in the test cloud.
+Build a Windows base image with Packer.

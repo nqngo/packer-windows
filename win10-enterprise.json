@@ -17,7 +17,7 @@
       "iso_url": "{{ user `iso_dir` }}/{{ user `iso_name` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "vm_name": "Windows_10_Enterprise",
-      "boot_wait": "2m",
+      "boot_wait": "4m",
       "headless": "true",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "ssh_wait_timeout": "2h",
@@ -36,14 +36,9 @@
   ],
   "provisioners": [
     {
-      "type": "windows-shell",
-      "scripts": [
-        "./scripts/windows/enable-rdp.bat"
-      ]
-    },
-    {
       "type": "powershell",
       "scripts": [
+        "./scripts/windows/rdp-enable.ps1",
         "./scripts/windows/virtio.ps1"
       ]
     }
