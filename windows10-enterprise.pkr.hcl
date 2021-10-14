@@ -1,13 +1,3 @@
-
-# Avoid mixing go templating calls ( for example ```{{ upper(`string`) }}``` )
-# and HCL2 calls (for example '${ var.string_value_example }' ). They won't be
-# executed together and the outcome will be unknown.
-
-variable "autounattend" {
-  type    = string
-  default = "./answer_files/10/enterprise/Autounattend.xml"
-}
-
 variable "iso_checksum" {
   type    = string
   default = "SHA256:4767510FFB63CC6FE81BC81DDD377454751313185FFAE30B88DD597C8A24D371"
@@ -49,7 +39,7 @@ source "hyperv-iso" "windows-10-bios" {
   switch_name      = "Default Switch"
   vm_name          = "Windows_10_Enterprise"
   floppy_files     = [
-    "${var.autounattend}",
+    "./answer_files/10/enterprise/bios/Autounattend.xml",
     "./scripts/windows/fixnetwork.ps1",
     "./scripts/windows/uac-disable.ps1",
     "./scripts/windows/chocolatey.ps1",
@@ -75,7 +65,7 @@ source "hyperv-iso" "windows-10-uefi" {
   generation         = 2
   enable_secure_boot = true
   cd_files         = [
-    "${var.autounattend}",
+    "./answer_files/10/enterprise/uefi/Autounattend.xml",
     "./scripts/windows/fixnetwork.ps1",
     "./scripts/windows/uac-disable.ps1",
     "./scripts/windows/chocolatey.ps1",
@@ -93,8 +83,8 @@ build {
 
   provisioner "powershell" {
     scripts = [
-      "./scripts/windows/rdp-enable.ps1",
-      "./scripts/windows/virtio.ps1"
+      "./scripts/windows/openssh-nopassword.ps1",
+      "./scripts/windows/virtio.ps1",
       ]
   }
 
